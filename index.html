@@ -2,23 +2,142 @@
 <html>
 <head>
 <title>FirstWatch</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: 'Open sans', Verdana, Arial, sans-serif;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body { background: url('images/lighthouse-on-the-beach.jpg') no-repeat;}
+h1, .emphasis {text-shadow: 0px 3px 4px #555;}
+.page-top { padding-top:160px;}
+.cta {padding-top:30px;}
+.mid-section { padding-top: 50px;}
+.mumbojumbo { background-color:rgba(222,222,222,0.3);
+  padding: 20px 30px 30px; margin-bottom:380px;
+  border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;}
+.mumbojumbo h2 { line-height:1.3em; font-size:200%}
+.headline { font-family: 'Ubuntu', sans-serif; color:white; font-size:250% }
+.headline > small {color:#ccc;}
+.byline { font-family: sans-serif; border-top:2px solid #ddd; padding-top:50px;}
+ul.gallery { padding:0 0 0 0; margin:0 0 0 0; }
+ul.gallery li { list-style:none; margin-bottom:25px; }
+ul.gallery li img { cursor: pointer; }
 </style>
 </head>
 <body>
-<center>
-<p>FirstWatch</p>
-</center>
-<h1>"You're going to have to reproduce this bug for me!"</h1>
+  <div class="container">
+    <div class="text-center page-top">
+      <h1 class="headline">FirstWatch<br><small>Your Local Code Guardian</small></h1>
+    </div>
+    <div class="row mid-section">
+        <div class="col-xs-2"> </div>
+        <div class="col-xs-8 mid-column">
 
-<p>Uh. Right.</p>
+          <div class="mumbojumbo">
+            <h2 class="text-center">FirstWatch is a Chrome extension that records the last few minutes of your dev environment as a <span class="emphasis" style="color:white">screencast</span> -- automatically.</h2>
+          </div>
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">You Have Control. <br><span class="small text-muted">Start. Stop. Get Video.</span></h2>
+              <p class="lead">Your data stays on your computer the entire time. The extension itself is capable of recording the screencast for you.</p>
+            </div>
+            <div class="col-md-5">
+              <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true">
+            </div>
+          </div>
+
+          <br><br>
+          <hr class="featurette-divider">
+          <br><br>
+
+          <div class="row featurette">
+            <div class="col-md-5">
+              <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true">
+            </div>
+            <div class="col-md-7">
+              <h2 class="featurette-heading">Annotate With Ease. <br><span class="small text-muted">See for yourself.</span></h2>
+              <ul class="gallery">
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" data-src="holder.js/80x80/auto" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4="></li>
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" data-src="holder.js/80x80/auto" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4="></li>
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" data-src="holder.js/80x80/auto" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4="></li>
+              </ul>
+            </div>
+          </div>
+
+          <br><br>
+          <hr class="featurette-divider">
+          <br><br>
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">Experience Peace Of Mind. <br><span class="small text-muted">Start. Stop. Get Video.</span></h2>
+              <p class="lead"></p>
+            </div>
+            <!-- http://fearlessflyer.com/create-a-responsive-photo-gallery-with-bootstrap-framework/ -->
+            <div class="col-md-5">
+              <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Nice Screenshot" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true">
+            </div>
+          </div>
+
+          <br><br>
+          <hr class="featurette-divider">
+          <br><br>
+
+          <div class="row featurette">
+            <div class="col-md-12 text-center">
+              <h2 class="featurette-heading">Easily Export &amp; Share Your Screencast.<br><span class="small text-muted">Email Video || Add a Github ticket.</span></h2>
+              <img src="images/github.jpg" style="height:100px">&nbsp;
+              <img src="images/mail-icon.png" alt="Email" style="height:80px;">
+            </div>
+          </div>
+
+          <br><br>
+          <hr class="featurette-divider">
+          <br><br>
 
 
+          <div class="row featurette">
+            <div class="col-md-3">
+              <h2 class="text-center featurette-heading">Get it now.</h2>
+            </div>
+            <div class="col-md-7">
+              <a href="#" class="cta"><img class="img-responsive" src="images/download.jpeg"><br>
+              <a href="#" id="downloadBtn" class="btn btn-lg btn-warning">Get <strong>FirstWatch&trade;</strong> from the Chrome Web Store</a>
+            </a>
+            </div>
+          </div>
+
+          <br><br><br>
+
+        </div>
+        <div class="col-xs-2"> </div>
+
+    </div>
+    <br><br><br>
+    <div><small>background image <a rel="nofollow" href="//hdw.eweb4.com/out/151481.html">credits</a></small></div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 
 <!-- begin olark code -->
