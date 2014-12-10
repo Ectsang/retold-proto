@@ -1,0 +1,16 @@
+/* Overrides */
+.video-js {padding-top: 56.25%}
+.vjs-fullscreen {padding-top: 0px}
+
+@media (min-width: @screen-sm-min) {
+  .mumbojumbo h3 { line-height:1.3em; font-size:30% }
+  #mc-embedded-subscribe { font-size:80px; width:100%;}
+}
+@media (min-width: @screen-md-min) {
+  .mumbojumbo h3 { line-height:1.3em; font-size:80% }
+  #mc-embedded-subscribe { font-size:80px; width:100%;}
+}
+@media (min-width: @screen-lg-min) {
+  .mumbojumbo h3 { line-height:1.3em; font-size:200% }
+  #mc-embedded-subscribe { font-size:80px; width:100%;}
+}
