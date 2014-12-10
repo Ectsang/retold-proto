@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css">
 <link href='//fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+<link href="//vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
 <style type="text/css">
 body { background: url('images/lighthouse-on-the-beach.jpg') no-repeat; background-size: 100% auto;}
 #expandBg { position:absolute; top:0; z-index:-10; background-size: 100% auto}
@@ -37,26 +38,21 @@ ul.gallery li img { cursor: pointer; }
         <div class="col-xs-8 mid-column">
 
           <div class="mumbojumbo">
-            <h3 class="text-center">Peace of mind to recall the last minutes of your web app session <span class="emphasis" style="color:white">on demand</span> -- as a video screencast you can annotate.</h3>
+            <h3 class="text-center">Recall last minutes of your app session <span class="emphasis" style="color:white">on demand</span> -- a screencast video you can annotate.</h3>
           </div>
 
-
-          <!-- <div class="asdf">
-            <h2>How To Use</h2>
-            <div class="well"></div>
-          </div> -->
-
-          <br><br>
-          <hr class="featurette-divider">
-          <br><br>
-
           <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading">You Have Control. <br><span class="small text-muted">Start. Stop. Get Video.</span></h2>
-              <p class="lead">Your data stays on your computer the entire time. The extension itself is capable of recording the screencast for you.</p>
+            <div class="col-md-6">
+              <h2 class="featurette-heading">1. Choose target window. <br><span class="small text-muted">Record any open browser window</span></h2>
+              <p class="lead"></p>
             </div>
-            <div class="col-md-5">
-              <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true">
+            <div class="col-md-6">
+              <video id="example_video_1" class="video-js vjs-default-skin"
+                controls preload="auto" width="430" height="264"
+                poster="images/poster1.png"
+                data-setup='{"eric":true}'>
+               <source src="videos/fw1.mp4" type='video/mp4' />
+              </video>
             </div>
           </div>
 
@@ -65,16 +61,16 @@ ul.gallery li img { cursor: pointer; }
           <br><br>
 
           <div class="row featurette">
-            <div class="col-md-5">
-              <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true">
+            <div class="col-md-6">
+              <h2 class="featurette-heading">2. Capture on demand. <br><span class="small text-muted">Get the last minute as a screencast.</span></h2>
             </div>
-            <div class="col-md-7">
-              <h2 class="featurette-heading">Annotate With Ease. <br><span class="small text-muted">See for yourself.</span></h2>
-              <ul class="gallery">
-                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" data-src="holder.js/80x80/auto" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4="></li>
-                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" data-src="holder.js/80x80/auto" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4="></li>
-                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"><img class="img-responsive" data-src="holder.js/80x80/auto" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4="></li>
-              </ul>
+            <div class="col-md-6">
+              <video id="example_video_2" class="video-js vjs-default-skin"
+                controls preload="auto" width="430" height="264"
+                poster="images/poster2.png"
+                data-setup='{"eric":true}'>
+               <source src="videos/fw2.mp4" type='video/mp4' />
+              </video>
             </div>
           </div>
 
@@ -83,13 +79,18 @@ ul.gallery li img { cursor: pointer; }
           <br><br>
 
           <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading">Experience Peace Of Mind. <br><span class="small text-muted">Start. Stop. Get Video.</span></h2>
+            <div class="col-md-6">
+              <h2 class="featurette-heading">3. Annotate with ease. <br><span class="small text-muted">Make notes directly on the video.</span></h2>
               <p class="lead"></p>
             </div>
             <!-- http://fearlessflyer.com/create-a-responsive-photo-gallery-with-bootstrap-framework/ -->
-            <div class="col-md-5">
-              <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Nice Screenshot" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjE5MC4zMTI1IiB5PSIyNTAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjNwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj41MDB4NTAwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true">
+            <div class="col-md-6">
+              <video id="example_video_3" class="video-js vjs-default-skin"
+                controls preload="auto" width="430" height="264"
+                poster="images/poster3.png"
+                data-setup='{"eric":true}'>
+               <source src="videos/fw3.mp4" type='video/mp4' />
+              </video>
             </div>
           </div>
 
@@ -98,12 +99,15 @@ ul.gallery li img { cursor: pointer; }
           <br><br>
 
           <div class="row featurette">
-            <div class="col-md-12 text-center">
-              <h2 class="featurette-heading">Easily Export &amp; Share Your Screencast.<br><span class="small text-muted">Email Video || Add a Github ticket.</span></h2>
+            <div class="col-md-6">
+              <h2 class="featurette-heading">4. Share to Github.<br><span class="small text-muted">Share as a link or create as a Github issue.</span></h2>
+            </div>
+            <div class="col-md-6">
               <img src="images/github.jpg" style="height:100px">&nbsp;
               <img src="images/mail-icon.png" alt="Email" style="height:80px;">
             </div>
           </div>
+
 
           <br><br>
           <hr class="featurette-divider">
@@ -120,7 +124,7 @@ ul.gallery li img { cursor: pointer; }
             </a>
             </div> -->
             <div class="col-md-12">
-              <h2 class="text-center featurette-heading">Sign up for the Wait List.</h2>
+              <h2 class="text-center featurette-heading">Get Early Access. Subscribe to our waitlist.</h2>
               <!-- Begin MailChimp Signup Form -->
                 <link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
                 <style type="text/css">
@@ -142,7 +146,7 @@ ul.gallery li img { cursor: pointer; }
                       <div class="response" id="mce-success-response" style="display:none"></div>
                     </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
                     <div style="position: absolute; left: -5000px;"><input type="text" name="b_e1b5ffc52cfc7dede4bb2bd58_6de79c9bfa" tabindex="-1" value=""></div>
-                    <div id="mc-embedded-cta" class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+                    <div id="mc-embedded-cta" class="clear"><input type="submit" value="Get Early Access to FirstWatch" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
                     </div>
                 </form>
                 </div>
@@ -180,6 +184,7 @@ ul.gallery li img { cursor: pointer; }
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="//vjs.zencdn.net/4.2/video.js"></script>
 
 
 <!-- begin olark code -->
@@ -200,7 +205,7 @@ var t=b.contentWindow[g];t.write(p());t.close()}catch(x){
 b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({
 loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
 /* custom configuration goes here (www.olark.com/documentation) */
-olark.identify('1434-630-10-2940');/*]]>*/</script><noscript><a href="https://www.olark.com/site/1434-630-10-2940/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+olark.identify('1434-630-10-2940');/*]]>*/</script><noscript><a href="//www.olark.com/site/1434-630-10-2940/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="//www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
 <!-- end olark code -->
 </body>
 </html>
