@@ -1,3 +1,9 @@
+<?php
+  include_once "firebasetokengen/vendor/autoload.php";//FirebaseToken.php";
+
+  $tokenGen = new Services_FirebaseTokenGenerator($_SERVER['RETOLD_FIREBASE_SECRET']);
+  $token = $tokenGen->createToken(array("uid" => "simplelogin:1"));
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +73,7 @@ body {padding-top: 50px;}
         </div>
 
         <div role="tabpanel" class="tab-pane " id="documentation">
-          Docs
+          Not yet available. Please write us an email.
         </div>
 
       </div>
@@ -102,19 +108,30 @@ body {padding-top: 50px;}
   var spinner = new Spinner(opts).spin(target);
 </script>
 <script type="text/javascript">
-  var _STORE_BASE_URL = 'https://sweltering-inferno-5956.firebaseio.com/aHR0cDovL2xvY2FsaG9zdC9sZW5nbGVhZC5jb20v';
-  var _SITE_URL = atob('aHR0cDovL2xvY2FsaG9zdC9sZW5nbGVhZC5jb20v');
+  function authHandler(error, authData) {
+    if (error) {
+      console.log("Login Failed!", error);
+    } else {
+      console.log("Authenticated successfully with payload:");//, authData);
 
-  var myDataRef = new Firebase(_STORE_BASE_URL);
-  setTimeout(function() {
-    myDataRef.once('value', function(dataSnapshot) {
-      if (!dataSnapshot.exists()) {
-        $("#loadingmsg").hide();
-        $("#nullmsg").show();
-      }
-    });
-  }, 1000);
-  myDataRef.on('child_added', function(snapshot) {
+      setTimeout(function() {
+        ref.once('value', function(dataSnapshot) {
+          if (!dataSnapshot.exists()) {
+            $("#loadingmsg").hide();
+            $("#nullmsg").show();
+          }
+        });
+      }, 1000);
+    }
+  }
+
+  var _STORE_BASE_URL = 'https://sweltering-inferno-5956.firebaseio.com/';
+  var _SITES = 'sites/' + 'aHR0cDovL2xvY2FsaG9zdC9sZW5nbGVhZC5jb20v';
+
+  var ref = new Firebase(_STORE_BASE_URL);
+  ref.authWithCustomToken("<?php echo $token ?>", authHandler);
+
+  ref.child(_SITES).on('child_added', function(snapshot) {
     // console.log('child_added');
     $("#loadingmsg").hide();
     $("#nullmsg").hide();
@@ -122,7 +139,7 @@ body {padding-top: 50px;}
     var id = snapshot.key();
     insertAnnotation(nodeAddr, id);
   });
-  myDataRef.on('child_changed', function(snapshot) {
+  ref.child(_SITES).on('child_changed', function(snapshot) {
     // console.log('child_changed');
     var nodeAddr = snapshot.val();
     var id = snapshot.key();
@@ -143,7 +160,7 @@ body {padding-top: 50px;}
     $('#annotationList').prepend(markup);
   }
   function updateAnnotation(node, id) {
-    console.log(node);
+    // console.log(node);
     var idAuthor = id + "_author",
         idComment = id + "_comment",
         idSpinner = id + "_spinner",
