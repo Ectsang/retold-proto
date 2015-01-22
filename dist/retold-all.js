@@ -12,11 +12,11 @@ window.retold = {
       if (dataSnapshot.exists()) {
         var siteUrl = retold._SITE_URL += dataSnapshot.val();
         retold.siteDataRef = new Firebase(siteUrl);
-console.log(siteUrl);
+
       } else {
         var siteUrl = retold._SITE_URL += "unclaimed";
         retold.siteDataRef = new Firebase(siteUrl);
-console.log(siteUrl);
+
       }
 
       retold.siteDataRef.authAnonymously(function(error, authData) {
@@ -216,7 +216,7 @@ console.log(siteUrl);
   },
 
   saveComment: function(evt) {
-    console.log("saveComment");
+    // console.log("saveComment");
     try {
       var data = {
         time: Date.now(),
