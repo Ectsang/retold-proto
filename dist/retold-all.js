@@ -1,34 +1,40 @@
-/*
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<style type="text/css">
-#retoldInit { cursor: pointer }
-</style>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-<script type="text/javascript" src='//cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
-<script type="text/javascript" src="../html2canvas/dist/html2canvas.js"></script>
-*/
-
 window.retold = {
 
   init: function(options) {
-    this.renderMarkup();
-    this.hookupPageEvents();
     this.apiKey = options.apiKey;
 
     this._STORE_URL = 'https://sweltering-inferno-5956.firebaseio.com/';
-    this._SITE_URL = this._STORE_URL + 'sites/' // + btoa(window.location.href);
-    // this.dataRef = new Firebase(this._SITE_URL);
-    this.siteDataRef = new Firebase(this._SITE_URL);
-    this.siteDataRef.authAnonymously(function(error, authData) {
-      if (error) {
-        console.log("Login Failed!", error);
+    this._SITE_URL = this._STORE_URL + 'sites/'; // + btoa(window.location.href);
+    var _APIKEYCHECK_URL = this._STORE_URL + 'keymap/'+this.apiKey;
+
+    var mapRef = new Firebase(_APIKEYCHECK_URL);
+    mapRef.once('value', function(dataSnapshot) {
+      if (dataSnapshot.exists()) {
+        var siteUrl = retold._SITE_URL += dataSnapshot.val();
+        retold.siteDataRef = new Firebase(siteUrl);
+console.log(siteUrl);
       } else {
-        console.log("Authenticated successfully with payload:", authData);
+        var siteUrl = retold._SITE_URL += "unclaimed";
+        retold.siteDataRef = new Firebase(siteUrl);
+console.log(siteUrl);
       }
+
+      retold.siteDataRef.authAnonymously(function(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+          retold.renderMarkup();
+          retold.hookupPageEvents();
+        }
+      });
     });
   },
 
   renderMarkup: function() {
+    // load css
+    // <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
     var retoldMarkup = '<input id="retoldTargetHtml" type="hidden" value="" />'+
     '<img id="mousePtr" class="follow" style="display:none;position:absolute;z-index:3000;right:20px;bottom:20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAeCAYAAACrI9dtAAACq0lEQVR42t2Xz0tiURTH/Y9mUZmCvzIlTJK0IMiNgUErxbAcqoVCLgRBaxW5MFEQaxfSRnIhEW4sRFMxKgTBhbvAlYvvcC68hzOTP8beew194S2E8+75eO+553yfTPbdBOBHu91uPj8/o16v4/X1Fe/v7z8lB0mn09BoNJiZmRn5zM7OYn9/H51OpyAKyO3tLaxWKxQKxViYj57FxUX4/X4IAvPw8ACn08n+NZdgbW0NJycnuLu7Ax1bv9/HoFqtFsrlMq6uruB2uzE/P8+/azAYcHZ2Nj3c9fU1v5hcLsfu7i6q1SqmUSwWw/LyMr/e9vY2pqobboHV1VW8vLxACEUiEX7XNzc3JwejbeeANjY2ILRKpRIPZrfbJwPT6XTsBZfLBbFUq9X4SxONRkeDBQIBFriysgKxRZeFchmNxtFQS0tLLPDi4gJSiFoF5cvn88PBlEolCxKqsMdpb2+P5aMmOxSKK0CpFA6Hx99Ervh6vZ4kUMfHx+P7ll6vZ0GFQkESqK2tLZaPin4oFPUNCvJ4PKIDNRoNNinm5uZATmMoVKVSYUEERk1OTHEb4HA4xjdQGsAUrFKpRAPa2dnhpwZtxERd3WazsRe0Wi3u7+8FBaKbxgElk8nJ5x85SK6R0kOd/rNKpVKwWCz8mjRjp7Iv5Ie43kXj4F/19PSETCbzG8zCwgKy2eznDN/BwQFbjI50UNT14/E4bm5uUCwW8fj4yJKdn5/j8PCQ1eSg+6TfR0dHwrhPk8nEFj09PeWBCIKu86R2OBgMQlB/ziVvNpsMyOfz8UdKR0FHo1armRVZX19nlicUCoGca7fbzQj+wTDYS/60tF6vFzKpRQb/o6Og3UkkEtIDXV5e/gVDc1GwQp1Gg59FZrMZuVzu62A40YB8e3v7epD/Sb8AFRCMD6cU2FwAAAAASUVORK5CYII=" />'+
     '<div id="retoldComment" style="z-index:10000;padding:5px;position:absolute;background:white;color:black;border:1px solid #0088CC;border-top:5px solid #0088CC;display:none">'+
@@ -36,7 +42,7 @@ window.retold = {
       '<button id="retoldCommentBtn">Save Comment</button>'+
     '</div>'+
     '<div id="retold" style="position:fixed; right:20px; bottom:20px; background:white; padding:6px;">'+
-      '<a id="retoldInit" data-trigger="hover" data-placement="left" title="Make a comment"><i id="retoldInitIcon" class="fa fa-comments-o fa-3x"></i></a>'+
+      '<a id="retoldInit" data-trigger="hover" data-placement="left" title="Make a comment" style="cursor:pointer"><i id="retoldInitIcon" class="fa fa-comments-o fa-3x"></i></a>'+
     '</div>';
 
     $(retoldMarkup).appendTo('body');
@@ -210,13 +216,13 @@ window.retold = {
   },
 
   saveComment: function(evt) {
-    // console.log("saveComment");
+    console.log("saveComment");
     try {
       var data = {
         time: Date.now(),
         author: retold.siteDataRef.getAuth().uid,
         targetHtml: $('#retoldTargetHtml').val(),
-        mouseLocation: this.getMouseXY(evt),
+        mouseLocation: retold.getMouseXY(evt),
         url: window.location.href,
         comment: $('#retoldCommentText').val()
       };
@@ -226,7 +232,7 @@ window.retold = {
       return newKey;
 
     } catch (ex) {
-      // console.error(ex);
+      console.error(ex);
       return false;
     }
   },
@@ -272,6 +278,7 @@ window.retold = {
   },
 
   saveScreenshot: function(id, dataURL, blob) {
+
     var _COMMENT_URL = this._SITE_URL + '/' + id + '/screenshot';
     var myCommentRef = new Firebase(_COMMENT_URL);
     if (blob !== null)

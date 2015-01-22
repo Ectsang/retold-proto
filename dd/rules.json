@@ -1,5 +1,9 @@
 {
   "rules": {
+    "keymap": {
+      ".read": true,
+      ".write": false
+    },
     "users": {
       "$uid": {
         // grants write access to the owner of this user account whose uid must exactly match the key ($uid)
@@ -10,23 +14,22 @@
     },
     "sites": {
       "$site": {
+        "$session" :{
+          // can only read your own site's data
+          ".read": "auth !== null && auth.uid === data.child('owner').val()",
+          "data" : {
+            ".indexOn": ["author", "owner", "time", "url"],
+            // allow write from authenticated AND subsequent writes do not alter author or url
+            ".write": "auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous') && (data.exists() ? !newData.hasChildren(['author']) && !newData.hasChildren(['url']) : true)"
+          },
+          "screenshot" : {
+            ".write": "auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous')"
+          }
+        },
         "owner": {
           // can write if no previous data exist OR if logged in with password
           ".write": "(!data.exists() || !newData.exists()) || (auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous'))",
           ".validate": "newData.val() === auth.uid"
-        },
-
-        // can only read your own site's data
-        ".read": "auth !== null && auth.uid === data.child('owner').val()",
-        // first write is allowed
-        ".write": "(!data.exists() || !newData.exists())",
-        "data" : {
-          ".indexOn": ["author", "owner", "time", "url"],
-          // can write if no previous data exist OR if logged in with password
-          ".write": "(!data.exists() || !newData.exists()) || (auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous'))"
-        },
-        "screenshot" : {
-          ".write": true
         }
       }
     }
