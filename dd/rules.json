@@ -1,0 +1,34 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        // grants write access to the owner of this user account whose uid must exactly match the key ($uid)
+        ".write": "auth !== null && auth.uid === $uid",
+        // grants read access to any user who is logged in with an email and password
+        ".read": "auth !== null && auth.provider === 'password'"
+      }
+    },
+    "sites": {
+      "$site": {
+        "owner": {
+          // can write if no previous data exist OR if logged in with password
+          ".write": "(!data.exists() || !newData.exists()) || (auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous'))",
+          ".validate": "newData.val() === auth.uid"
+        },
+
+        // can only read your own site's data
+        ".read": "auth !== null && auth.uid === data.child('owner').val()",
+        // first write is allowed
+        ".write": "(!data.exists() || !newData.exists())",
+        "data" : {
+          ".indexOn": ["author", "owner", "time", "url"],
+          // can write if no previous data exist OR if logged in with password
+          ".write": "(!data.exists() || !newData.exists()) || (auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous'))"
+        },
+        "screenshot" : {
+          ".write": true
+        }
+      }
+    }
+  }
+}
