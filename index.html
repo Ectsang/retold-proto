@@ -38,7 +38,7 @@ span.smaller { font-size:58%; }
         </ul>
         <br><br>
       </div>
-      <div class="col-sm-4" style="background:black; color:white; border-radius:50%;-moz-border-radius:50%;-webkit-border-radius:3%;padding:10px 20px">
+      <div class="col-sm-4" style="background:black; color:white; padding:10px 20px">
         <div id="mainVideo">
           <iframe width="100%" height="300" src="//www.youtube.com/embed/S43HB9YhcW4" frameborder="0" allowfullscreen></iframe>
         </div>
@@ -46,14 +46,23 @@ span.smaller { font-size:58%; }
     </div>
   </div>
   <br><br>
-  <div style="color:white;background:black;margin:0;padding:10px">
+  <div style="color:white;background:#0088CC;margin:0;padding:10px;height:280px">
     <div class="emphasis col-md-12">
       <br>
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-          <h2 class="text-center featurette-heading">Get Your Free Account.</h2>
-          Email: <br>
-          Password: <br>
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+          <h2 class="text-center">Get Your Free Account.</h2>
+          <form id="signupForm" class="text-center form-inline" role="form">
+            <div class="form-group">
+              <label class="sr-only" for="signupEmail">Email</label>
+              <input type="email" class="form-control" id="signupEmail" name="signupEmail" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label class="sr-only" for="signupPassword">Password</label>
+              <input type="password" class="form-control" id="signupPassword" name="signupPassword" placeholder="Password">
+            </div>
+            <button id="newAcct" type="submit" class="btn btn-success btn-lg">Get My Account</button>
+          </form>
           <br>
           <!-- Begin MailChimp Signup Form -->
             <style type="text/css">
@@ -87,10 +96,9 @@ span.smaller { font-size:58%; }
             <!--End mc_embed_signup-->
           <!-- End Mailchimp Signup Form -->
       </div>
-      <div class="col-md-3"></div>
+      <div class="col-md-2"></div>
     </div>
   </div>
-  <br>
 
   <div class="container">
     <div class="row">
@@ -115,11 +123,10 @@ span.smaller { font-size:58%; }
     </div>
   </div>
 
-  <br><br>
-  <br><br>
-
-<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
- -->
+<script type="text/javascript" src='//cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+<script type="text/javascript" src="app.js"></script>
+</script>
 </body>
 </html>
