@@ -226,7 +226,8 @@ console.log(siteUrl);
         url: window.location.href,
         comment: $('#retoldCommentText').val()
       };
-      // console.log(data);
+
+      console.log(data);
       var newComment = retold.siteDataRef.push( { data: data } );
       var newKey = newComment.key();
       return newKey;
@@ -245,7 +246,12 @@ console.log(siteUrl);
 
     var annotationId = e.target.id.replace("btn_", "");
 
-    var myCommentRef = new Firebase(this._STORE_URL + '/' + annotationId + '/data');
+    var myCommentRef = new Firebase(this._SITE_URL + '/' + annotationId + '/data');
+// console.log(this._SITE_URL + '/' + annotationId + '/data');
+// console.log({
+//       comment: $('#textArea_'+annotationId).val(),
+//       time: Date.now()
+//     });
     myCommentRef.update({
       comment: $('#textArea_'+annotationId).val(),
       time: Date.now()
@@ -278,7 +284,6 @@ console.log(siteUrl);
   },
 
   saveScreenshot: function(id, dataURL, blob) {
-
     var _COMMENT_URL = this._SITE_URL + '/' + id + '/screenshot';
     var myCommentRef = new Firebase(_COMMENT_URL);
     if (blob !== null)
