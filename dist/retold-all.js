@@ -4,7 +4,7 @@ window.retold = {
     this.apiKey = options.apiKey;
 
     this._STORE_URL = 'https://sweltering-inferno-5956.firebaseio.com/';
-    this._SITE_URL = this._STORE_URL + 'sites/'; // + btoa(window.location.href);
+    this._SITE_URL = this._STORE_URL + 'sites/';
     var _APIKEYCHECK_URL = this._STORE_URL + 'keymap/'+this.apiKey;
 
     var mapRef = new Firebase(_APIKEYCHECK_URL);
@@ -41,7 +41,7 @@ window.retold = {
       '<textarea id="retoldCommentText" cols="50" placeholder="Write down your feedback. What would you like changed?"></textarea><br>'+
       '<button id="retoldCommentBtn">Save Comment</button>'+
     '</div>'+
-    '<div id="retold" style="position:fixed; right:20px; bottom:20px; background:white; padding:6px;">'+
+    '<div id="retold" style="position:fixed; right:20px; bottom:20px; background:transparent; padding:6px;">'+
       '<a id="retoldInit" data-trigger="hover" data-placement="left" title="Make a comment" style="cursor:pointer"><i id="retoldInitIcon" class="fa fa-comments-o fa-3x"></i></a>'+
     '</div>';
 
@@ -227,7 +227,7 @@ window.retold = {
         comment: $('#retoldCommentText').val()
       };
 
-      console.log(data);
+      // console.log(data);
       var newComment = retold.siteDataRef.push( { data: data } );
       var newKey = newComment.key();
       return newKey;
@@ -239,7 +239,7 @@ window.retold = {
   },
 
   updateComment: function(e) {
-    console.log("updateComment");
+    // console.log("updateComment");
     e = e || window.event;
     var targ = e.target || e.srcElement;
     if (targ.nodeType == 3) targ = targ.parentNode;
