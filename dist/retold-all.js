@@ -33,9 +33,9 @@ window.retold = {
 
   renderMarkup: function() {
     // load css
-    // <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    var retoldMarkup = '<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
 
-    var retoldMarkup = '<input id="retoldTargetHtml" type="hidden" value="" />'+
+    retoldMarkup += '<input id="retoldTargetHtml" type="hidden" value="" />'+
     '<img id="mousePtr" class="follow" style="display:none;position:absolute;z-index:3000;right:20px;bottom:20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAeCAYAAACrI9dtAAACq0lEQVR42t2Xz0tiURTH/Y9mUZmCvzIlTJK0IMiNgUErxbAcqoVCLgRBaxW5MFEQaxfSRnIhEW4sRFMxKgTBhbvAlYvvcC68hzOTP8beew194S2E8+75eO+553yfTPbdBOBHu91uPj8/o16v4/X1Fe/v7z8lB0mn09BoNJiZmRn5zM7OYn9/H51OpyAKyO3tLaxWKxQKxViYj57FxUX4/X4IAvPw8ACn08n+NZdgbW0NJycnuLu7Ax1bv9/HoFqtFsrlMq6uruB2uzE/P8+/azAYcHZ2Nj3c9fU1v5hcLsfu7i6q1SqmUSwWw/LyMr/e9vY2pqobboHV1VW8vLxACEUiEX7XNzc3JwejbeeANjY2ILRKpRIPZrfbJwPT6XTsBZfLBbFUq9X4SxONRkeDBQIBFriysgKxRZeFchmNxtFQS0tLLPDi4gJSiFoF5cvn88PBlEolCxKqsMdpb2+P5aMmOxSKK0CpFA6Hx99Ervh6vZ4kUMfHx+P7ll6vZ0GFQkESqK2tLZaPin4oFPUNCvJ4PKIDNRoNNinm5uZATmMoVKVSYUEERk1OTHEb4HA4xjdQGsAUrFKpRAPa2dnhpwZtxERd3WazsRe0Wi3u7+8FBaKbxgElk8nJ5x85SK6R0kOd/rNKpVKwWCz8mjRjp7Iv5Ie43kXj4F/19PSETCbzG8zCwgKy2eznDN/BwQFbjI50UNT14/E4bm5uUCwW8fj4yJKdn5/j8PCQ1eSg+6TfR0dHwrhPk8nEFj09PeWBCIKu86R2OBgMQlB/ziVvNpsMyOfz8UdKR0FHo1armRVZX19nlicUCoGca7fbzQj+wTDYS/60tF6vFzKpRQb/o6Og3UkkEtIDXV5e/gVDc1GwQp1Gg59FZrMZuVzu62A40YB8e3v7epD/Sb8AFRCMD6cU2FwAAAAASUVORK5CYII=" />'+
     '<div id="retoldComment" style="z-index:10000;padding:5px;position:absolute;background:white;color:black;border:1px solid #0088CC;border-top:5px solid #0088CC;display:none">'+
       '<textarea id="retoldCommentText" cols="50" placeholder="Write down your feedback. What would you like changed?"></textarea><br>'+
@@ -239,22 +239,18 @@ window.retold = {
   },
 
   updateComment: function(e) {
-    // console.log("updateComment");
+    console.log("updateComment");
     e = e || window.event;
     var targ = e.target || e.srcElement;
     if (targ.nodeType == 3) targ = targ.parentNode;
 
     var annotationId = e.target.id.replace("btn_", "");
 
-    var myCommentRef = new Firebase(this._SITE_URL + '/' + annotationId + '/data');
-// console.log(this._SITE_URL + '/' + annotationId + '/data');
-// console.log({
-//       comment: $('#textArea_'+annotationId).val(),
-//       time: Date.now()
-//     });
-    myCommentRef.update({
-      comment: $('#textArea_'+annotationId).val(),
-      time: Date.now()
+    retold.siteDataRef.child(annotationId).update({
+      data: {
+        comment: $('#textArea_'+annotationId).val(),
+        time: Date.now()
+      }
     });
 
     this.createScreenshot(annotationId);
