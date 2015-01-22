@@ -1,8 +1,7 @@
 <?php
-  include_once "firebasetokengen/vendor/autoload.php";//FirebaseToken.php";
-
-  $tokenGen = new Services_FirebaseTokenGenerator($_SERVER['RETOLD_FIREBASE_SECRET']);
-  $token = $tokenGen->createToken(array("uid" => "simplelogin:1"));
+include_once "firebasetokengen/vendor/autoload.php";//FirebaseToken.php";
+$tokenGen = new Services_FirebaseTokenGenerator($_SERVER['RETOLD_FIREBASE_SECRET']);
+$token = $tokenGen->createToken(array("uid" => "simplelogin:1"));
 ?>
 <!DOCTYPE html>
 <html>
