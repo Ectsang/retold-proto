@@ -10,7 +10,7 @@ window.retold = {
     var mapRef = new Firebase(_APIKEYCHECK_URL);
     mapRef.once('value', function(dataSnapshot) {
       if (dataSnapshot.exists()) {
-        var siteUrl = retold._SITE_URL += dataSnapshot.val();
+        var siteUrl = retold._SITE_URL += dataSnapshot.child('site').val();
         retold.siteDataRef = new Firebase(siteUrl);
 
       } else {
@@ -246,11 +246,16 @@ window.retold = {
 
     var annotationId = e.target.id.replace("btn_", "");
 
-    retold.siteDataRef.child(annotationId).update({
-      data: {
-        comment: $('#textArea_'+annotationId).val(),
-        time: Date.now()
-      }
+    // retold.siteDataRef.child(annotationId).child(data).update({
+    //   comment: $('#textArea_'+annotationId).val(),
+    //   time: Date.now()
+    // });
+
+    var _DATA_URL = this._SITE_URL + '/' + annotationId + '/data';
+    var dataRef = new Firebase(_DATA_URL);
+    dataRef.update({
+      comment: $('#textArea_'+annotationId).val(),
+      time: Date.now()
     });
 
     this.createScreenshot(annotationId);
