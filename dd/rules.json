@@ -2,12 +2,11 @@
   "rules": {
     "keymap": {
       ".read": true,
-      ".write": false
+      ".write": "auth !== null && auth.provider === 'password'"
     },
     "users": {
       "$uid": {
-        // grants write access to the owner of this user account whose uid must exactly match the key ($uid)
-        ".write": "auth !== null && auth.uid === $uid",
+        ".write": true,
         // grants read access to any user who is logged in with an email and password
         ".read": "auth !== null && auth.provider === 'password'"
       }

@@ -1,7 +1,8 @@
 <?php
-include_once "firebasetokengen/vendor/autoload.php";//FirebaseToken.php";
-$tokenGen = new Services_FirebaseTokenGenerator($_SERVER['RETOLD_FIREBASE_SECRET']);
-$token = $tokenGen->createToken(array("uid" => $_REQUEST['u']));
+// include_once "firebasetokengen/vendor/autoload.php";//FirebaseToken.php";
+// $tokenGen = new Services_FirebaseTokenGenerator($_SERVER['RETOLD_FIREBASE_SECRET']);
+// $userId = $_REQUEST['u'];
+$keymapId = $_REQUEST['km'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,10 +14,51 @@ $token = $tokenGen->createToken(array("uid" => $_REQUEST['u']));
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='//fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="../overrides.css">
 <style type="text/css">
-body {padding-top: 50px;}
+  body {padding-top: 50px;}
+  .spinner {
+    width: 40px;
+    height: 40px;
+
+    position: relative;
+    margin: 100px auto;
+  }
+
+  .double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #333;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: bounce 2.0s infinite ease-in-out;
+    animation: bounce 2.0s infinite ease-in-out;
+  }
+
+  .double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+  }
+
+  @-webkit-keyframes bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: scale(0.0);
+      -webkit-transform: scale(0.0);
+    } 50% {
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
+  }
 </style>
-<link rel="stylesheet" type="text/css" href="overrides.css">
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -34,7 +76,7 @@ body {padding-top: 50px;}
         <ul class="nav navbar-nav">
           <!-- <li class="active"><a href="#">Home</a></li>
           <li><a href="#about">About</a></li> -->
-          <li><a href="#logout">Logout</a></li>
+          <li><a href="javascript:logOut()">Logout</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -63,7 +105,10 @@ body {padding-top: 50px;}
                 <img src="//placehold.it/300x180" alt="...">
               </div> -->
               <div class="text-center">
-                <div id="loadingmsg"><br><br></div>
+                <div class="spinner">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+                </div>
                 <span id="nullmsg" style="display:none">You don't have any annotations yet.</span>
               </div>
             </div>
@@ -78,45 +123,30 @@ body {padding-top: 50px;}
       </div>
     </div>
   </div>
-
+<?php
+echo $_REQUEST['km'];
+// $token = $tokenGen->createToken(array("uid" => $_REQUEST['u']));
+?>
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
-<script type="text/javascript" src="js/spin.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../app.js"></script>
 <script type="text/javascript">
-  var opts = {
-    lines: 12, // The number of lines to draw
-    length: 1, // The length of each line
-    width: 4, // The line thickness
-    radius: 8, // The radius of the inner circle
-    corners: 0.5, // Corner roundness (0..1)
-    rotate: 9, // The rotation offset
-    direction: 1, // 1: clockwise, -1: counterclockwise
-    color: '#000', // #rgb or #rrggbb or array of colors
-    speed: 1.1, // Rounds per second
-    trail: 52, // Afterglow percentage
-    shadow: true, // Whether to render a shadow
-    hwaccel: true, // Whether to use hardware acceleration
-    className: 'spinner', // The CSS class to assign to the spinner
-    zIndex: 2e9, // The z-index (defaults to 2000000000)
-    top: '50%', // Top position relative to parent
-    left: '50%' // Left position relative to parent
-  };
-  var target = document.getElementById('loadingmsg');
-  var spinner = new Spinner(opts).spin(target);
-</script>
-<script type="text/javascript">
+  function logOut() {
+    console.log('logging out');
+    ref.unauth();
+  }
   function authHandler(error, authData) {
     if (error) {
       console.log("Login Failed!", error);
     } else {
-      console.log("Authenticated successfully with payload:");//, authData);
+      console.log("Authenticated successfully with payload:", authData);
 
       setTimeout(function() {
         ref.once('value', function(dataSnapshot) {
           if (!dataSnapshot.exists()) {
-            $("#loadingmsg").hide();
+            $(".spinner").hide();
             $("#nullmsg").show();
           }
         });
@@ -125,14 +155,17 @@ body {padding-top: 50px;}
   }
 
   var _STORE_BASE_URL = 'https://sweltering-inferno-5956.firebaseio.com/';
-  var _SITES = 'sites/' + 'aHR0cDovL2xvY2FsaG9zdC9sZW5nbGVhZC5jb20v';
+  var _SITES = 'sites/';
 
   var ref = new Firebase(_STORE_BASE_URL);
-  ref.authWithCustomToken("<?php echo $token ?>", authHandler);
+  if (read_cookie("retoldAuth")) {
+    var token = read_cookie("retoldAuth");
+    ref.authWithCustomToken(token, authHandler);
+  }
 
   ref.child(_SITES).on('child_added', function(snapshot) {
     // console.log('child_added');
-    $("#loadingmsg").hide();
+    $(".spinner").hide();
     $("#nullmsg").hide();
     var nodeAddr = snapshot.val();
     var id = snapshot.key();

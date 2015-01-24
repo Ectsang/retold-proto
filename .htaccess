@@ -1,0 +1,4 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteRule ^dashboard/([^/]+)[^(\.css|\.js)]$ dashboard.php?km=$1 [NC]
