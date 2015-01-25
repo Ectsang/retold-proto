@@ -32,8 +32,7 @@ function delete_cookie(name) {
   document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 function login() {
-  console.log('login');
-  return authWithPassword({
+  return loginWithPassword({
     email:$('#loginEmail').val(),
     password:$('#loginPassword').val()
   });
@@ -42,6 +41,22 @@ function logOut() {
   delete_cookie('retoldAuth');
   rootRef.unauth();
   window.location.href = '/';
+}
+function loginWithPassword(userObj) {
+  var deferred = $.Deferred();
+  rootRef.authWithPassword(userObj, function onAuth(err, user) {
+    if (err) { deferred.reject(err); }
+    if (user) {
+      window.console && console.log("user logged in", rootRef.getAuth());
+      rootRef.child('keymap').orderByChild("uid").equalTo(user.uid).once("value", function(snapshot) {
+        bake_cookie("retoldAuth", rootRef.getAuth().token);
+        var km = Object.keys(snapshot.val())[0];
+        window.location.href = window.location.href + 'dashboard/'+km;
+      });
+      deferred.resolve(user);
+    }
+  });
+  return deferred.promise();
 }
 function authWithPassword(userObj) {
   var deferred = $.Deferred();
