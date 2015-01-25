@@ -1,4 +1,5 @@
 ;var rootRef = new Firebase("https://sweltering-inferno-5956.firebaseio.com/");
+var sitesRef = new Firebase("https://sweltering-inferno-5956.firebaseio.com/sites");
 
 $(document).ready(function(){
 
@@ -20,30 +21,40 @@ function makeid(n){
     return text;
 }
 function bake_cookie(name, value) {
-  var cookie = name+'='+value;//[name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
+  var cookie = name+'='+value;
   document.cookie = cookie;
 }
 function read_cookie(name) {
- // var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
- // result && (result = JSON.parse(result[1]));
  var ary = document.cookie.split('=');
  return ary[1];
 }
 function delete_cookie(name) {
-  document.cookie = [name, '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/; domain=.', window.location.host.toString()].join('');
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
-
+function login() {
+  console.log('login');
+  return authWithPassword({
+    email:$('#loginEmail').val(),
+    password:$('#loginPassword').val()
+  });
+}
+function logOut() {
+  delete_cookie('retoldAuth');
+  rootRef.unauth();
+  window.location.href = '/';
+}
 function authWithPassword(userObj) {
   var deferred = $.Deferred();
   // window.console && console.log('authWithPassword', userObj);
   rootRef.authWithPassword(userObj, function onAuth(err, user) {
-    // window.console && console.log('authWithPassword');
     if (err) { deferred.reject(err); }
     if (user) {
       rootRef.child("users").child(user.uid).set(user);
       var newKey = makeid(12), siteId = makeid(9), newKeymap = { apiKey: newKey, site: siteId, uid: user.uid };
+      var ns = sitesRef.child(siteId).set({count:0});
       var nk = rootRef.child("keymap").push(newKeymap);
       var km = nk.key();
+
       window.console && console.log("user created and logged in", rootRef.getAuth());
       deferred.resolve(user);
       bake_cookie("retoldAuth", rootRef.getAuth().token);
@@ -67,7 +78,7 @@ function createUser(userObj) {
 
 // Create a user and then login in
 // returns a promise
-function createUserAndLogin(userObj, callback) {
+function createUserAndLogin(userObj) {
   return createUser(userObj)
       .then(function () {
       return authWithPassword(userObj);

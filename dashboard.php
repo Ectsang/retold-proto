@@ -123,34 +123,32 @@ $keymapId = $_REQUEST['km'];
       </div>
     </div>
   </div>
-<?php
-echo $_REQUEST['km'];
-// $token = $tokenGen->createToken(array("uid" => $_REQUEST['u']));
-?>
+
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../app.js"></script>
 <script type="text/javascript">
-  function logOut() {
-    console.log('logging out');
-    ref.unauth();
-  }
   function authHandler(error, authData) {
     if (error) {
       console.log("Login Failed!", error);
+      window.location.href = '/';
+      return;
     } else {
       console.log("Authenticated successfully with payload:", authData);
-
-      setTimeout(function() {
-        ref.once('value', function(dataSnapshot) {
-          if (!dataSnapshot.exists()) {
+      var kmSearch = 'keymap/<?php echo $keymapId ?>';
+      var siteRef = new Firebase(_STORE_BASE_URL);
+      ref.child(kmSearch).once('value', function(dataSnapshot) {
+        var siteSearch = 'sites/'+dataSnapshot.val().site;
+        ref.child(siteSearch).once('value', function(ds) {
+          if (ds.val().count == 0) {
             $(".spinner").hide();
             $("#nullmsg").show();
           }
         });
-      }, 1000);
+      });
+
     }
   }
 
@@ -158,10 +156,8 @@ echo $_REQUEST['km'];
   var _SITES = 'sites/';
 
   var ref = new Firebase(_STORE_BASE_URL);
-  if (read_cookie("retoldAuth")) {
-    var token = read_cookie("retoldAuth");
-    ref.authWithCustomToken(token, authHandler);
-  }
+  if (token = read_cookie("retoldAuth")) ref.authWithCustomToken(token, authHandler);
+  else window.location.href = '/';
 
   ref.child(_SITES).on('child_added', function(snapshot) {
     // console.log('child_added');
