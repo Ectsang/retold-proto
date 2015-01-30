@@ -117,7 +117,13 @@ $keymapId = $_REQUEST['km'];
         </div>
 
         <div role="tabpanel" class="tab-pane " id="documentation">
-          Not yet available. Please write us an email.
+          <h2>Quick Start</h2><br>
+          <h4>1. Paste the javascript snippet into any of your web page, right before the &lt;/body&gt; tag</h4>
+          <div id="mycode" class="well">
+          </div>
+          <strong>* If you need to include this in every page of your site, consider placing the snippet in a common include file, such as your footer.</strong>
+          <br><br>
+          <h4>2. Now your clients can give you feedback directly on any web page that</h4>
         </div>
 
       </div>
@@ -140,21 +146,28 @@ $keymapId = $_REQUEST['km'];
       var kmSearch = 'keymap/<?php echo $keymapId ?>';
       var siteRef = new Firebase(_STORE_BASE_URL);
       ref.child(kmSearch).once('value', function(dataSnapshot) {
-        var _SITES = 'sites/'+dataSnapshot.val().site;
+        _SITES = 'sites/'+dataSnapshot.val().site;
+        _APIKEY = dataSnapshot.val().apiKey;
+
+        getMyCode(_APIKEY);
+
         ref.child(_SITES).once('value', function(ds) {
           if (ds.val().count == 0) {
-            $(".spinner").hide();
-            $("#nullmsg").show();
+            setTimeout(function() {
+              $(".spinner").hide();
+              $("#nullmsg").show();
+            }, 2000);
           }
 
-          console.log(ref.child(_SITES).toString());
           ref.child(_SITES).on('child_added', function(snapshot) {
             // console.log('child_added');
             $(".spinner").hide();
             $("#nullmsg").hide();
-            var nodeAddr = snapshot.val();
-            var id = snapshot.key();
-            insertAnnotation(nodeAddr, id);
+            if (snapshot.val() !== 0) {
+              var nodeAddr = snapshot.val();
+              var id = snapshot.key();
+              insertAnnotation(nodeAddr, id);
+            }
           });
           ref.child(_SITES).on('child_changed', function(snapshot) {
             // console.log('child_changed');
@@ -168,7 +181,7 @@ $keymapId = $_REQUEST['km'];
   }
 
   var _STORE_BASE_URL = 'https://sweltering-inferno-5956.firebaseio.com/';
-  var _SITES;
+  var _SITES, apiKey;
 
   var ref = new Firebase(_STORE_BASE_URL);
   if (token = read_cookie("retoldAuth")) ref.authWithCustomToken(token, authHandler);
@@ -200,7 +213,12 @@ $keymapId = $_REQUEST['km'];
     $("#" +idScreenshot).attr('src', node.screenshot.dataURL);
     $("#" +idScreenshot).show();
   }
+  function getMyCode(id) {
+    var markup = '&lt;script type="text/javascript" src="http://retold.io/dist/retold-all.js"&gt;&lt;/script&gt;&lt;script type="text/javascript"&gt;window.retold = window.retold || {};retold.init({apiKey: "'+id+'"});&lt;/script&gt';
+    $('#mycode').prepend(markup);
+  }
 </script>
 
+<script type="text/javascript" src="http://retold.io/dist/retold-all.js"></script><script type="text/javascript">window.retold = window.retold || {};retold.init({apiKey: "Jwc2xovsnDvh"});</script>
 </body>
 </html>
