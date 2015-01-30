@@ -71,7 +71,7 @@ window.retold = {
         $('#retoldInitIcon').addClass('fa-close');
         $('#retoldInitIcon').removeClass('fa-comments-o');
         $('body').css('cursor: none;'); // custom cursor
-        retold.stripClickEvents(); // disable all button events on page
+        // retold.stripClickEvents(); // disable all button events on page
         $('#mousePtr').show();
         $('body').css({cursor:'pointer'});
         document.onclick = retold.captureClick;
@@ -158,12 +158,12 @@ window.retold = {
 
   stripClickEvents: function() {
     // console.log("stripClickEvents");
-    $("a").each(function() {
-      $(this).css("cursor","arrow").click(false);
-    });
-    $("button").each(function() {
-      $(this).css("cursor","arrow").click(false);
-    });
+    // $("a").each(function() {
+    //   $(this).css("cursor","arrow").click(false);
+    // });
+    // $("button").each(function() {
+    //   $(this).css("cursor","arrow").click(false);
+    // });
     // $(":input").each(function() {
     //   if (!(this.id === "retoldCommentText" ||
     //         this.id === "retoldCommentBtn" ||
