@@ -117,13 +117,19 @@ $keymapId = $_REQUEST['km'];
         </div>
 
         <div role="tabpanel" class="tab-pane " id="documentation">
-          <h2>Quick Start</h2><br>
-          <h4>1. Paste the javascript snippet into any of your web page, right before the &lt;/body&gt; tag</h4>
+          <h2>Quick Start</h2><br><br>
+          <h4 style="color:#0088CC">1. Paste the javascript snippet into your web pages, right before the &lt;/body&gt; tag</h4>
           <div id="mycode" class="well">
           </div>
-          <strong>* If you need to include this in every page of your site, consider placing the snippet in a common include file, such as your footer.</strong>
+          <strong>*TIP* -- If you need to include this in every page of your site, consider placing the snippet in a common include file, such as your footer.</strong>
+          <br><br><br><br>
+          <h4 style="color:#0088CC">2. Now your clients can give feedback directly on those web pages.</h4>
           <br><br>
-          <h4>2. Now your clients can give you feedback directly on any web page that</h4>
+          <hr>
+          <br>
+          <h2>API Documentation</h2><br><br>
+          <p>Coming soon.</p>
+          <br><br><br>
         </div>
 
       </div>
@@ -134,6 +140,7 @@ $keymapId = $_REQUEST['km'];
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
 <script type="text/javascript" src="../app.js"></script>
 <script type="text/javascript">
   function authHandler(error, authData) {
@@ -153,10 +160,8 @@ $keymapId = $_REQUEST['km'];
 
         ref.child(_SITES).once('value', function(ds) {
           if (ds.val().count == 0) {
-            setTimeout(function() {
-              $(".spinner").hide();
-              $("#nullmsg").show();
-            }, 2000);
+            $(".spinner").hide();
+            $("#nullmsg").show();
           }
 
           ref.child(_SITES).on('child_added', function(snapshot) {
@@ -193,7 +198,9 @@ $keymapId = $_REQUEST['km'];
         idComment = id + "_comment",
         idSpinner = id + "_spinner",
         idScreenshot = id + "_screenshot";
-    var markup = '<div id="'+id+'" class="thumbnail"><div class="caption"><h3 id="'+idAuthor+'">'+node.data.author+': <code id="'+idComment+'">'+node.data.comment+'</code> <span class="pull-right"><a href="#" class="btn btn-primary" role="button">Mark as read</a></span></h3></div><br><hr>';
+    var t = moment(node.data.time).format("dddd, MMMM Do YYYY, h:mm:ss a");
+    // var markup = '<div id="'+id+'" class="thumbnail"><div class="caption"><p id="'+idAuthor+'">'+node.data.author+': <code id="'+idComment+'">'+node.data.comment+'</code> <span class="pull-right"><a href="#" class="btn btn-primary" role="button">Mark as read</a></span></p></div><br><hr>';
+    var markup = '<div id="'+id+'" class="thumbnail"><div class="caption"><strong>'+t+'</strong>  --  <a href="'+node.data.url+'">'+node.data.url+'</a><br><code id="'+idComment+'">'+node.data.comment+'</code><span class="pull-right"><a href="#" class="btn btn-primary" role="button">Mark as read</a></span></div><br><hr>';
     if (node.screenshot) {
       markup += '<br><img id="'+idScreenshot+'" alt="..." src="'+node.screenshot.dataURL+'"></div><hr>';
     } else {
@@ -214,11 +221,15 @@ $keymapId = $_REQUEST['km'];
     $("#" +idScreenshot).show();
   }
   function getMyCode(id) {
-    var markup = '&lt;script type="text/javascript" src="http://retold.io/dist/retold-all.js"&gt;&lt;/script&gt;&lt;script type="text/javascript"&gt;window.retold = window.retold || {};retold.init({apiKey: "'+id+'"});&lt;/script&gt';
+    // var markup = '&lt;script type="text/javascript" src="http://retold.io/dist/retold-all.js"&gt;&lt;/script&gt;&lt;script type="text/javascript"&gt;window.retold = window.retold || {};retold.init({apiKey: "'+id+'"});&lt;/script&gt';
+    var markup = '&lt;script type="text/javascript"&gt;!function(src,cb){var s,r,t;r=false;s=document.createElement("script");s.type="text/javascript";s.src=src;s.onload=s.onreadystatechange=function(){if(!r&&(!this.readyState||this.readyState=="complete")){r=true;cb();}};t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);}("http://retold.io/dist/retold-all.js",function(){window.retold=window.retold||{};retold.init({apiKey:"'+id+'"});});&lt;/script&gt;';
     $('#mycode').prepend(markup);
   }
 </script>
 
-<script type="text/javascript" src="http://retold.io/dist/retold-all.js"></script><script type="text/javascript">window.retold = window.retold || {};retold.init({apiKey: "Jwc2xovsnDvh"});</script>
+<script type="text/javascript">
+!function(src,cb){var s,r,t;r=false;s=document.createElement("script");s.type="text/javascript";s.src=src;s.onload=s.onreadystatechange=function(){if(!r&&(!this.readyState||this.readyState=="complete")){r=true;cb();}};t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);}("http://retold.io/dist/retold-all.js",function(){window.retold=window.retold||{};retold.init({apiKey:"Jwc2xovsnDvh"});});
+</script>
+
 </body>
 </html>
