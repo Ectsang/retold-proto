@@ -21,7 +21,8 @@
         ".write": "auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous') && ( ( !data.exists() || (!newData.child('data').hasChildren(['author']) && !newData.child('data').hasChildren(['url'])) ) ? true : false )",
         "$session" :{
           // can only read your own site's data
-          ".read": "auth !== null && auth.uid === data.child('owner').val()",
+          //".read": "auth !== null && auth.uid === data.child('owner').val()",
+          ".read": "auth !== null && auth.provider === 'password'",
           // allow write from authenticated AND subsequent writes do not alter author or url
           ".write": "auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous') && ( ( !data.exists() || (!newData.child('data').hasChildren(['author']) && !newData.child('data').hasChildren(['url'])) ) ? true : false )",
           "data" : {
@@ -37,6 +38,10 @@
           // can write if no previous data exist OR if logged in with password
           ".write": "(!data.exists() || !newData.exists()) || (auth !== null && (auth.provider === 'password' || auth.provider === 'anonymous'))",
           ".validate": "newData.val() === auth.uid"
+        },
+        "count": {
+          ".read": true,
+          ".write": true
         }
       }
     }

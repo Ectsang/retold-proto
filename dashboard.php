@@ -140,39 +140,40 @@ $keymapId = $_REQUEST['km'];
       var kmSearch = 'keymap/<?php echo $keymapId ?>';
       var siteRef = new Firebase(_STORE_BASE_URL);
       ref.child(kmSearch).once('value', function(dataSnapshot) {
-        var siteSearch = 'sites/'+dataSnapshot.val().site;
-        ref.child(siteSearch).once('value', function(ds) {
+        var _SITES = 'sites/'+dataSnapshot.val().site;
+        ref.child(_SITES).once('value', function(ds) {
           if (ds.val().count == 0) {
             $(".spinner").hide();
             $("#nullmsg").show();
           }
+
+          console.log(ref.child(_SITES).toString());
+          ref.child(_SITES).on('child_added', function(snapshot) {
+            // console.log('child_added');
+            $(".spinner").hide();
+            $("#nullmsg").hide();
+            var nodeAddr = snapshot.val();
+            var id = snapshot.key();
+            insertAnnotation(nodeAddr, id);
+          });
+          ref.child(_SITES).on('child_changed', function(snapshot) {
+            // console.log('child_changed');
+            var nodeAddr = snapshot.val();
+            var id = snapshot.key();
+            updateAnnotation(nodeAddr, id);
+          });
         });
       });
-
     }
   }
 
   var _STORE_BASE_URL = 'https://sweltering-inferno-5956.firebaseio.com/';
-  var _SITES = 'sites/';
+  var _SITES;
 
   var ref = new Firebase(_STORE_BASE_URL);
   if (token = read_cookie("retoldAuth")) ref.authWithCustomToken(token, authHandler);
   else window.location.href = '/';
 
-  ref.child(_SITES).on('child_added', function(snapshot) {
-    // console.log('child_added');
-    $(".spinner").hide();
-    $("#nullmsg").hide();
-    var nodeAddr = snapshot.val();
-    var id = snapshot.key();
-    insertAnnotation(nodeAddr, id);
-  });
-  ref.child(_SITES).on('child_changed', function(snapshot) {
-    // console.log('child_changed');
-    var nodeAddr = snapshot.val();
-    var id = snapshot.key();
-    updateAnnotation(nodeAddr, id);
-  });
   function insertAnnotation(node, id) {
     // console.log(node);
     var idAuthor = id + "_author",

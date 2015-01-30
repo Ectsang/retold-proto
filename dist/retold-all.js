@@ -5,19 +5,19 @@ window.retold = {
 
     this._STORE_URL = 'https://sweltering-inferno-5956.firebaseio.com/';
     this._SITE_URL = this._STORE_URL + 'sites/';
-    var _APIKEYCHECK_URL = this._STORE_URL + 'keymap/'+this.apiKey;
-
-    var mapRef = new Firebase(_APIKEYCHECK_URL);
-    mapRef.once('value', function(dataSnapshot) {
+    this._KEYMAP;
+    var _APIKEYCHECK_URL;
+    var rootRef = new Firebase(this._STORE_URL);
+    rootRef.child('keymap').orderByChild("apiKey").equalTo(this.apiKey).once("value", function(dataSnapshot) {
+      var km = this._KEYMAP = Object.keys(dataSnapshot.val())[0];
+      var dsv = dataSnapshot.val();
       if (dataSnapshot.exists()) {
-        var siteUrl = retold._SITE_URL += dataSnapshot.child('site').val();
-        retold.siteDataRef = new Firebase(siteUrl);
-
+        this.siteId = dsv[km].site;
       } else {
-        var siteUrl = retold._SITE_URL += "unclaimed";
-        retold.siteDataRef = new Firebase(siteUrl);
-
+        this.siteId = "unclaimed";
       }
+      var siteUrl = retold._SITE_URL += this.siteId;
+      retold.siteDataRef = new Firebase(siteUrl);
 
       retold.siteDataRef.authAnonymously(function(error, authData) {
         if (error) {
