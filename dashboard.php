@@ -3,6 +3,7 @@
 // $tokenGen = new Services_FirebaseTokenGenerator($_SERVER['RETOLD_FIREBASE_SECRET']);
 // $userId = $_REQUEST['u'];
 $keymapId = $_REQUEST['km'];
+if (empty($keymapId)) header('Location: /');
 ?>
 <!DOCTYPE html>
 <html>
@@ -98,12 +99,6 @@ $keymapId = $_REQUEST['km'];
 
           <div class="row">
             <div id="annotationList" class="col-md-12">
-              <!-- <div class="thumbnail">
-                <div class="caption">
-                  <h3>Annotation #1 <span class="pull-right"><a href="#" class="btn btn-primary" role="button">Mark as read</a> <a href="#" class="btn btn-default" role="button">OK</a></span></h3>
-                </div>
-                <img src="//placehold.it/300x180" alt="...">
-              </div> -->
               <div class="text-center">
                 <div class="spinner">
                   <div class="double-bounce1"></div>
