@@ -75,6 +75,7 @@ window.retold = {
         $('#mousePtr').show();
         $('body').css({cursor:'pointer'});
         document.onclick = retold.captureClick;
+
       } else {
         retold.cleanSlate();
       }
@@ -175,20 +176,22 @@ window.retold = {
   },
 
   captureClick: function(evt) {
-    var evt=window.event || evt; // window.event for IE
-    evt.preventDefault();
+    if (evt.toElement.id !== "retoldCommentBtn") {
+      var evt=window.event || evt; // window.event for IE
+      evt.preventDefault();
 
-    if (!evt.target) evt.target=evt.srcElement; // extend target property for IE
-    if (!(evt.target.id == 'retoldInitIcon' ||
-          evt.target.id == 'retoldComment' ||
-          evt.target.id == 'retoldCommentText' ||
-          evt.target.id.indexOf("textArea_") !== -1 ||
-          evt.target.id.indexOf("btn_") !== -1 )) {
-      var mouseLocation = retold.getMouseXY(evt);
+      if (!evt.target) evt.target=evt.srcElement; // extend target property for IE
+      if (!(evt.target.id == 'retoldInitIcon' ||
+            evt.target.id == 'retoldComment' ||
+            evt.target.id == 'retoldCommentText' ||
+            evt.target.id.indexOf("textArea_") !== -1 ||
+            evt.target.id.indexOf("btn_") !== -1 )) {
+        var mouseLocation = retold.getMouseXY(evt);
 
-      retold.createComment(mouseLocation.x, mouseLocation.y);
-      $('#retoldTargetHtml').val(evt.target.outerHTML);
-      $('#retoldCommentText').focus();
+        retold.createComment(mouseLocation.x, mouseLocation.y);
+        $('#retoldTargetHtml').val(evt.target.outerHTML);
+        $('#retoldCommentText').focus();
+      }
     }
   },
 
