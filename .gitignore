@@ -1,3 +1,4 @@
 npm-debug.log
 vendor/*
 
+.DS_Store
