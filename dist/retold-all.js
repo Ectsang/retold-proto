@@ -140,7 +140,7 @@ window.retold = {
     $('#mousePtr').hide();
     $('body').css({cursor:'default'});
     document.onclick = function(){};
-    this.deleteComments();
+    this.hideComments();
   },
 
   dataURItoBlob: function(dataURI) {
@@ -247,7 +247,7 @@ window.retold = {
     this.createScreenshot(annotationId);
   },
 
-  deleteComments: function() {
+  hideComments: function() {
     if (retold.comments && retold.comments.length > 0) {
       for (var i = retold.comments.length - 1; i >= 0; i--) {
         $('#' + retold.comments[i]).remove();
