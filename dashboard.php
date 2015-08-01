@@ -159,7 +159,6 @@ if (empty($keymapId)) header('Location: /');
           }
 
           ref.child(_SITES).on('child_added', function(snapshot) {
-            // console.log('child_added');
             $(".spinner").hide();
             $("#nullmsg").hide();
             if (snapshot.val() !== 0) {
@@ -169,7 +168,6 @@ if (empty($keymapId)) header('Location: /');
             }
           });
           ref.child(_SITES).on('child_changed', function(snapshot) {
-            // console.log('child_changed');
             var nodeAddr = snapshot.val();
             var id = snapshot.key();
             updateAnnotation(nodeAddr, id);
@@ -215,7 +213,8 @@ if (empty($keymapId)) header('Location: /');
     $("#" +idScreenshot).show();
   }
   function getMyCode(id) {
-    var markup = '&lt;script type="text/javascript"&gt;!function(src,cb){var s,r,t;r=false;s=document.createElement("script");s.type="text/javascript";s.src=src;s.onload=s.onreadystatechange=function(){if(!r&&(!this.readyState||this.readyState=="complete")){r=true;cb();}};t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);}("http://retold.io/dist/retold-all.js",function(){window.retold=window.retold||{};retold.init({apiKey:"'+id+'"});});&lt;/script&gt;';
+    var clientLibUrl = 'http://retold.io/dist/retold-all.js';
+    var markup = '&lt;script type="text/javascript"&gt;!function(src,cb){var s,r,t;r=false;s=document.createElement("script");s.type="text/javascript";s.src=src;s.onload=s.onreadystatechange=function(){if(!r&&(!this.readyState||this.readyState=="complete")){r=true;cb();}};t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);}("'+clientLibUrl+'",function(){window.retold=window.retold||{};retold.init({apiKey:"'+id+'"});});&lt;/script&gt;';
     $('#mycode').prepend(markup);
   }
 </script>

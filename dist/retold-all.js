@@ -1,40 +1,44 @@
+window.retoldConfig = {
+  storeUrl: 'https://sweltering-inferno-5956.firebaseio.com/',
+  siteUrl: this.storeUrl + 'sites/'
+};
 window.retold = {
 
   init: function(options) {
-    this.apiKey = options.apiKey;
 
-    this._STORE_URL = 'https://sweltering-inferno-5956.firebaseio.com/';
-    this._SITE_URL = this._STORE_URL + 'sites/';
-    this._KEYMAP;
-    var _APIKEYCHECK_URL;
-    var rootRef = new Firebase(this._STORE_URL);
-    rootRef.child('keymap').orderByChild("apiKey").equalTo(this.apiKey).once("value", function(dataSnapshot) {
-      var km = this._KEYMAP = Object.keys(dataSnapshot.val())[0];
-      var dsv = dataSnapshot.val();
-      if (dataSnapshot.exists()) {
-        this.siteId = dsv[km].site;
-      } else {
-        this.siteId = "unclaimed";
-      }
-      var siteUrl = retold._SITE_URL += this.siteId;
-      retold.siteDataRef = new Firebase(siteUrl);
+    var rootRef = new Firebase(retoldConfig.storeUrl);
+    rootRef
+      .child('keymap')
+      .orderByChild("apiKey")
+      .equalTo(options.apiKey)
+      .once("value", function(dataSnapshot) {
 
-      retold.siteDataRef.authAnonymously(function(error, authData) {
-        if (error) {
-          console.log("Login Failed!", error);
+        var km = Object.keys(dataSnapshot.val())[0];
+        var dsv = dataSnapshot.val();
+        if (dataSnapshot.exists()) {
+          this.siteId = dsv[km].site;
         } else {
-          console.log("Authenticated successfully with payload:", authData);
-          retold.renderMarkup();
-          retold.hookupPageEvents();
+          this.siteId = "unclaimed";
         }
-      });
+        var siteUrl = retoldConfig.siteUrl += this.siteId;
+        retold.siteDataRef = new Firebase(siteUrl);
+
+        retold.siteDataRef.authAnonymously(function(error, authData) {
+          if (error) {
+            console.log("Login Failed!", error);
+          } else {
+            console.log("Authenticated successfully with payload:", authData);
+            retold.renderMarkup();
+            retold.hookupPageEvents();
+          }
+        });
     });
   },
 
   renderMarkup: function() {
-    // load css
+    // load font awesome css
     var retoldMarkup = '<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
-
+    // build the widget
     retoldMarkup += '<input id="retoldTargetHtml" type="hidden" value="" />'+
     '<img id="mousePtr" class="follow" style="display:none;position:absolute;z-index:3000;right:20px;bottom:20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAeCAYAAACrI9dtAAACq0lEQVR42t2Xz0tiURTH/Y9mUZmCvzIlTJK0IMiNgUErxbAcqoVCLgRBaxW5MFEQaxfSRnIhEW4sRFMxKgTBhbvAlYvvcC68hzOTP8beew194S2E8+75eO+553yfTPbdBOBHu91uPj8/o16v4/X1Fe/v7z8lB0mn09BoNJiZmRn5zM7OYn9/H51OpyAKyO3tLaxWKxQKxViYj57FxUX4/X4IAvPw8ACn08n+NZdgbW0NJycnuLu7Ax1bv9/HoFqtFsrlMq6uruB2uzE/P8+/azAYcHZ2Nj3c9fU1v5hcLsfu7i6q1SqmUSwWw/LyMr/e9vY2pqobboHV1VW8vLxACEUiEX7XNzc3JwejbeeANjY2ILRKpRIPZrfbJwPT6XTsBZfLBbFUq9X4SxONRkeDBQIBFriysgKxRZeFchmNxtFQS0tLLPDi4gJSiFoF5cvn88PBlEolCxKqsMdpb2+P5aMmOxSKK0CpFA6Hx99Ervh6vZ4kUMfHx+P7ll6vZ0GFQkESqK2tLZaPin4oFPUNCvJ4PKIDNRoNNinm5uZATmMoVKVSYUEERk1OTHEb4HA4xjdQGsAUrFKpRAPa2dnhpwZtxERd3WazsRe0Wi3u7+8FBaKbxgElk8nJ5x85SK6R0kOd/rNKpVKwWCz8mjRjp7Iv5Ie43kXj4F/19PSETCbzG8zCwgKy2eznDN/BwQFbjI50UNT14/E4bm5uUCwW8fj4yJKdn5/j8PCQ1eSg+6TfR0dHwrhPk8nEFj09PeWBCIKu86R2OBgMQlB/ziVvNpsMyOfz8UdKR0FHo1armRVZX19nlicUCoGca7fbzQj+wTDYS/60tF6vFzKpRQb/o6Og3UkkEtIDXV5e/gVDc1GwQp1Gg59FZrMZuVzu62A40YB8e3v7epD/Sb8AFRCMD6cU2FwAAAAASUVORK5CYII=" />'+
     '<div id="retoldComment" style="z-index:10000;padding:5px;position:absolute;background:white;color:black;border:1px solid #0088CC;border-top:5px solid #0088CC;display:none">'+
@@ -44,7 +48,7 @@ window.retold = {
     '<div id="retold" style="position:fixed; right:20px; bottom:20px; background:transparent; padding:6px;">'+
       '<a id="retoldInit" data-trigger="hover" data-placement="left" title="Make a comment" style="cursor:pointer"><i id="retoldInitIcon" class="fa fa-comments-o fa-3x"></i></a>'+
     '</div>';
-
+    // append to body
     $(retoldMarkup).appendTo('body');
   },
 
@@ -68,7 +72,6 @@ window.retold = {
     });
 
     $('#retoldInit').click(function() {
-      // console.log("retoldInit");
       if ($('#retoldInitIcon').hasClass('fa-comments-o')) {
         $('#retoldInitIcon').addClass('fa-close');
         $('#retoldInitIcon').removeClass('fa-comments-o');
@@ -85,7 +88,6 @@ window.retold = {
     $('#retoldCommentBtn').click(function(evt, data) {
       var newKey = retold.saveComment(evt, data);
 
-      // newKey was in fact not false
       if (newKey !== false) {
 
         retold.createScreenshot(newKey);
@@ -94,7 +96,6 @@ window.retold = {
         var copyCat = $('#retoldComment').clone();
         copyCat.attr('id', newKey);
         var newIdStr = '#'+newKey;
-        // console.log(copyCat);
         copyCat.appendTo("body");
 
         // Copy commentText
@@ -232,12 +233,7 @@ window.retold = {
 
     var annotationId = e.target.id.replace("btn_", "");
 
-    // retold.siteDataRef.child(annotationId).child(data).update({
-    //   comment: $('#textArea_'+annotationId).val(),
-    //   time: Date.now()
-    // });
-
-    var _DATA_URL = this._SITE_URL + '/' + annotationId + '/data';
+    var _DATA_URL = retoldConfig.siteUrl + '/' + annotationId + '/data';
     var dataRef = new Firebase(_DATA_URL);
     dataRef.update({
       comment: $('#textArea_'+annotationId).val(),
@@ -255,7 +251,6 @@ window.retold = {
       // useCORS: true,
       type: 'view',
       height: $(window).height(), // only context
-      // proxy: 'https://ancient-crag-5418.herokuapp.com'
     }).then(function(canvas){
       var dataURL = canvas.toDataURL('image/png');
 
@@ -271,7 +266,7 @@ window.retold = {
   },
 
   saveScreenshot: function(id, dataURL, blob) {
-    var _COMMENT_URL = this._SITE_URL + '/' + id + '/screenshot';
+    var _COMMENT_URL = retoldConfig.siteUrl + '/' + id + '/screenshot';
     var myCommentRef = new Firebase(_COMMENT_URL);
     if (blob !== null)
       myCommentRef.update({ dataURL: dataURL, blob: blob });
@@ -280,6 +275,13 @@ window.retold = {
   }
 
 };
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+/*                Weekend MVP   --   DO NOT EDIT BELOW THIS LINE   --                 */
+////////////////////////////////////////////////////////////////////////////////////////
 
 
 

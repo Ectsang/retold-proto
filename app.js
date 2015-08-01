@@ -5,7 +5,6 @@ $(document).ready(function(){
 
   $('#newAcct').click(function(evt) {
     evt.preventDefault();
-    // window.console && console.log('submitted');
 
     createUserAndLogin({
       email    : $('#signupEmail').val(),
@@ -21,8 +20,7 @@ function makeid(n){
     return text;
 }
 function bake_cookie(name, value) {
-  var cookie = name+'='+value;
-  document.cookie = cookie;
+  document.cookie = name + '=' + value;
 }
 function read_cookie(name) {
  var ary = document.cookie.split('=');
@@ -60,7 +58,6 @@ function loginWithPassword(userObj) {
 }
 function authWithPassword(userObj) {
   var deferred = $.Deferred();
-  // window.console && console.log('authWithPassword', userObj);
   rootRef.authWithPassword(userObj, function onAuth(err, user) {
     if (err) { deferred.reject(err); }
     if (user) {
@@ -80,7 +77,7 @@ function authWithPassword(userObj) {
 }
 
 // create a user but not login
-// returns a promsie
+// returns a promise
 function createUser(userObj) {
   var deferred = $.Deferred();
   console.log('createUser', userObj);
