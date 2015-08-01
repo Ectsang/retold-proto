@@ -1,8 +1,9 @@
-window.retoldConfig = {
-  storeUrl: 'https://sweltering-inferno-5956.firebaseio.com/',
-  siteUrl: this.storeUrl + 'sites/'
-};
+window.retoldConfig = {};
+window.retoldConfig.storeUrl = 'https://sweltering-inferno-5956.firebaseio.com/';
+window.retoldConfig.siteUrl = retoldConfig.storeUrl + 'sites/';
 window.retold = {
+
+  comments: [],
 
   init: function(options) {
 
@@ -117,6 +118,8 @@ window.retold = {
         // Reset + Hide original retoldComment
         $('#retoldCommentText').val('');
         $('#retoldComment').hide();
+
+        retold.comments.push(newKey);
       }
     });
   },
@@ -137,6 +140,7 @@ window.retold = {
     $('#mousePtr').hide();
     $('body').css({cursor:'default'});
     document.onclick = function(){};
+    this.deleteComments();
   },
 
   dataURItoBlob: function(dataURI) {
@@ -241,6 +245,15 @@ window.retold = {
     });
 
     this.createScreenshot(annotationId);
+  },
+
+  deleteComments: function() {
+    if (retold.comments && retold.comments.length > 0) {
+      for (var i = retold.comments.length - 1; i >= 0; i--) {
+        $('#' + retold.comments[i]).remove();
+      };
+    }
+    retold.comments = [];
   },
 
   createScreenshot: function(id) {
