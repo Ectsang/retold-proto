@@ -2,5 +2,3 @@ Options +FollowSymlinks
 RewriteEngine on
 
 RewriteRule ^dashboard/([^/]+) dashboard.php?km=$1 [NC]
-
-# retold is running nginx

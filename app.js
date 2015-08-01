@@ -29,7 +29,7 @@ function read_cookie(name) {
  return ary[1];
 }
 function delete_cookie(name) {
-  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.cookie = name + '=; Max-Age=0';
 }
 function login() {
   return loginWithPassword({

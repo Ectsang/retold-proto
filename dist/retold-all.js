@@ -54,12 +54,14 @@ window.retold = {
     });
 
     $(document).keydown(function(e) {
+      // Ctrl - R
       if (e.keyCode == 82 && e.ctrlKey) {
         $('#retoldInit').trigger('click');
       }
     });
 
     $(document).keyup(function(e){
+      // ESC
       if (e.which == 27) {
         retold.cleanSlate();
       }
@@ -71,7 +73,6 @@ window.retold = {
         $('#retoldInitIcon').addClass('fa-close');
         $('#retoldInitIcon').removeClass('fa-comments-o');
         $('body').css('cursor: none;'); // custom cursor
-        // retold.stripClickEvents(); // disable all button events on page
         $('#mousePtr').show();
         $('body').css({cursor:'pointer'});
         document.onclick = retold.captureClick;
@@ -155,24 +156,6 @@ window.retold = {
     }
 
     return new Blob([ia], {type:mimeString});
-  },
-
-  stripClickEvents: function() {
-    // console.log("stripClickEvents");
-    // $("a").each(function() {
-    //   $(this).css("cursor","arrow").click(false);
-    // });
-    // $("button").each(function() {
-    //   $(this).css("cursor","arrow").click(false);
-    // });
-    // $(":input").each(function() {
-    //   if (!(this.id === "retoldCommentText" ||
-    //         this.id === "retoldCommentBtn" ||
-    //         this.id.indexOf("textArea_") !== -1 ||
-    //         this.id.indexOf("btn_") !== -1 )) {
-    //     $(this).prop("disabled", true);
-    //   }
-    // });
   },
 
   captureClick: function(evt) {

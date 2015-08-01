@@ -1,8 +1,7 @@
 <?php
-// include_once "firebasetokengen/vendor/autoload.php";//FirebaseToken.php";
-// $tokenGen = new Services_FirebaseTokenGenerator($_SERVER['RETOLD_FIREBASE_SECRET']);
-// $userId = $_REQUEST['u'];
-$keymapId = $_REQUEST['km'];
+$urlPath = $_SERVER['REQUEST_URI'];
+$urlPathArr = explode('/', $urlPath);
+$keymapId = $urlPathArr[count($urlPathArr) - 1];
 if (empty($keymapId)) header('Location: /');
 ?>
 <!DOCTYPE html>
@@ -104,7 +103,7 @@ if (empty($keymapId)) header('Location: /');
                   <div class="double-bounce1"></div>
                   <div class="double-bounce2"></div>
                 </div>
-                <span id="nullmsg" style="display:none">You don't have any annotations yet.</span>
+                <span id="nullmsg" style="display:none">Listening for new annotations ...</span>
               </div>
             </div>
           </div>
@@ -188,13 +187,13 @@ if (empty($keymapId)) header('Location: /');
   else window.location.href = '/';
 
   function insertAnnotation(node, id) {
-    // console.log(node);
+
     var idAuthor = id + "_author",
         idComment = id + "_comment",
         idSpinner = id + "_spinner",
         idScreenshot = id + "_screenshot";
     var t = moment(node.data.time).format("dddd, MMMM Do YYYY, h:mm:ss a");
-    // var markup = '<div id="'+id+'" class="thumbnail"><div class="caption"><p id="'+idAuthor+'">'+node.data.author+': <code id="'+idComment+'">'+node.data.comment+'</code> <span class="pull-right"><a href="#" class="btn btn-primary" role="button">Mark as read</a></span></p></div><br><hr>';
+
     var markup = '<div id="'+id+'" class="thumbnail"><div class="caption"><strong>'+t+'</strong>  --  <a href="'+node.data.url+'">'+node.data.url+'</a><br><code id="'+idComment+'">'+node.data.comment+'</code><span class="pull-right"><a href="#" class="btn btn-primary" role="button">Mark as read</a></span></div><br><hr>';
     if (node.screenshot) {
       markup += '<br><img id="'+idScreenshot+'" alt="..." src="'+node.screenshot.dataURL+'"></div><hr>';
@@ -204,7 +203,7 @@ if (empty($keymapId)) header('Location: /');
     $('#annotationList').prepend(markup);
   }
   function updateAnnotation(node, id) {
-    // console.log(node);
+
     var idAuthor = id + "_author",
         idComment = id + "_comment",
         idSpinner = id + "_spinner",
@@ -216,7 +215,6 @@ if (empty($keymapId)) header('Location: /');
     $("#" +idScreenshot).show();
   }
   function getMyCode(id) {
-    // var markup = '&lt;script type="text/javascript" src="http://retold.io/dist/retold-all.js"&gt;&lt;/script&gt;&lt;script type="text/javascript"&gt;window.retold = window.retold || {};retold.init({apiKey: "'+id+'"});&lt;/script&gt';
     var markup = '&lt;script type="text/javascript"&gt;!function(src,cb){var s,r,t;r=false;s=document.createElement("script");s.type="text/javascript";s.src=src;s.onload=s.onreadystatechange=function(){if(!r&&(!this.readyState||this.readyState=="complete")){r=true;cb();}};t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);}("http://retold.io/dist/retold-all.js",function(){window.retold=window.retold||{};retold.init({apiKey:"'+id+'"});});&lt;/script&gt;';
     $('#mycode').prepend(markup);
   }
