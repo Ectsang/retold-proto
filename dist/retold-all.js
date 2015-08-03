@@ -184,7 +184,7 @@ window.retold = {
   },
 
   getMouseXY: function(e) {
-    // console.log("getMouseXY");
+
     var IE = document.all ? true : false;
     if (!IE) document.captureEvents(Event.MOUSEMOVE);
     if (IE) {
@@ -198,7 +198,7 @@ window.retold = {
   },
 
   createComment: function(x,y) {
-    // console.log("createComment");
+
     $('#retoldComment').css('left', x);
     $('#retoldComment').css('top', y);
 
@@ -207,7 +207,7 @@ window.retold = {
   },
 
   saveComment: function(evt) {
-    // console.log("saveComment");
+
     try {
       var data = {
         time: Date.now(),
@@ -230,7 +230,7 @@ window.retold = {
   },
 
   updateComment: function(e) {
-    // console.log("updateComment");
+
     e = e || window.event;
     var targ = e.target || e.srcElement;
     if (targ.nodeType == 3) targ = targ.parentNode;
